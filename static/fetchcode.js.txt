@@ -1,0 +1,15 @@
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("http://127.0.0.1:5000/api/market")  // Request data from Flask API
+        .then(response => response.json())
+        .then(data => {
+            let container = document.getElementById("listings");
+            container.innerHTML = ""; // Clear previous results
+
+            data.forEach(item => {
+                let listItem = document.createElement("li");
+                listItem.textContent = `${item.name} - $${item.price} (${item.quantity} available)`;
+                container.appendChild(listItem);
+            });
+        })
+        .catch(error => console.error("Error fetching data:", error));
+});
